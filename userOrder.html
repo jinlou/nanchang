@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>订单列表</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/userOrder.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="outer">
+    <ul class="order_top">
+        <li class="all active">全部</li>
+        <li class="unwritten_off ">未核销</li>
+        <li class="write_off">已核销</li>
+    </ul>
+    <div class="order_content">
+        <div class="all_order_content"></div>
+        <div class="unwritten_off_order_content">1111</div>
+        <div class="write_off_order_content">22222</div>
+    </div>
+</div>
+</body>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/rem.js"></script>
+<script src="js/scroll.js"></script>
+<script>
+    (function () {
+        // 头部点击切换
+        $('.order_top li').on('click', function () {
+            if ($(this).hasClass('active')) return
+
+            $(this).addClass('active')
+            $(this).siblings('li').removeClass('active')
+
+            var liIndex = $(this).index() + 1
+            $('.order_content>div:nth-child(' + liIndex + ')').css('display', 'block').siblings().css('display', 'none')
+
+            if (liIndex === 1) {
+
+            }
+        })
+
+        var allOrder = [
+            {
+                id: 0,
+                orderName: '张三',
+                price: 22,
+                num: 2,
+                status: 1,
+                orderNum: '4646647474647474',
+                img: 'https://dss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=662187868,3430962993&fm=58'
+            },
+            {
+                id: 1,
+                orderName: '张三1',
+                price: 22,
+                num: 1,
+                status: 0,
+                orderNum: '4646647474647474',
+                img: 'https://dss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=662187868,3430962993&fm=58'
+            },
+            {
+                id: 2,
+                orderName: '张三2',
+                price: 22,
+                num: 2,
+                status: 1,
+                orderNum: '4646647474647474',
+                img: 'https://dss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=662187868,3430962993&fm=58'
+            },
+            {
+                id: 3,
+                orderName: '张三3',
+                price: 22,
+                num: 2,
+                status: 1,
+                orderNum: '4646647474647474',
+                img: 'https://dss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=662187868,3430962993&fm=58'
+            },
+            {
+                id: 4,
+                orderName: '张三4',
+                price: 22,
+                num: 4,
+                status: 0,
+                orderNum: '4646647474647474',
+                img: 'https://dss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=662187868,3430962993&fm=58'
+            }
+        ]
+
+        showOrder()
+        function showOrder() {
+            var oHtml = ''
+            for (var i = 0; i < allOrder.length; i++) {
+                oHtml += `
+                <div class="one_order">
+                    <p class="order_sub">
+                        <span>订单号：${allOrder[i].orderNum}</span>
+                        <span>${allOrder[i].status === 0 ? '核销' : '未核销'}</span>
+                    </p>
+                    <div class="order_info">
+                        <img class="one_left" src="${allOrder[i].img}"
+                             alt="">
+                        <div class="ont_right">
+                            <p class="order_name">${allOrder[i].orderName}</p>
+                            <p class="order_price_num">
+                                <span>售价: ${allOrder[i].price}元</span>
+                                <span>x${allOrder[i].num}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <p class="order_sup">共${allOrder[i].num}件商品 合计： <span>￥${allOrder[i].num * allOrder[i].price}元</span></p>
+                </div>`
+            }
+            $('.all_order_content').append(oHtml)
+        }
+
+        window.onscroll = function () {
+            //监听事件内容
+            if (getScrollHeight() == getWindowHeight() + getDocumentTop()) {
+                console.log('到底了！！！')
+            }
+        }
+
+        var nScrollHight = 0; //滚动距离总长(注意不是滚动条的长度)
+        var nScrollTop = 0;   //滚动到的当前位置
+        var nDivHight = $(".order_content").height();
+        $(".order_content").scroll(function () {
+            console.log('滚')
+            nScrollHight = $(this)[0].scrollHeight;
+            nScrollTop = $(this)[0].scrollTop;
+            var paddingBottom = parseInt($(this).css('padding-bottom')), paddingTop = parseInt($(this).css('padding-top'));
+            if (nScrollTop + paddingBottom + paddingTop + nDivHight >= nScrollHight)
+                console.log("滚动条到底部了");
+        });
+    })()
+</script>
+</html>

@@ -1,0 +1,29 @@
+* {
+    font-size: 0.14rem;
+}
+
+.coupon_info {
+    display: flex;
+    align-items: center;
+    height: 0.54rem;
+    padding-left: 0.26rem;
+}
+
+.coupon_info p {
+    width: 0.84rem;
+}
+
+.coupon_info input {
+    border: none;
+}
+
+.confirm {
+    width: 1.99rem;
+    height: 0.41rem;
+    line-height: 0.41rem;
+    background: #C0A77E;
+    border-radius: 0.21rem;
+    margin: 0.55rem auto 0;
+    text-align: center;
+    color: #fff;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>店铺详情</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/businessDetail.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<img src="./img/shop.png" alt="" class="business_img">
+<div class="business_detail">
+    <p class="business_name">松本清</p>
+    <div class="bussiness_info">
+        <img class="logo" src="https://dss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=662187868,3430962993&fm=58" alt="">
+        <div class="info">
+            <p>商家: 松本清</p>
+            <p>地址: 广东省深圳市龙岗区坂田大道科技中心</p>
+            <p>联系电话: 13266767676</p>
+            <p>营业时间: 8:00 - 20:00</p>
+        </div>
+    </div>
+</div>
+<a href="pay.html"><p class="pay">结账</p></a>
+
+
+<div class="slipping-area">
+    <div class="slipping-imgbox">
+        <img src="img/wechat.png" alt="">
+        <img src="img/wechat.png" alt="">
+        <img src="img/wechat.png" alt="">
+        <img src="img/wechat.png" alt="">
+    </div>
+</div>
+
+<div class="comment">
+    <p style="height:0.20rem;font-size:0.14rem;color: #333;">消费店铺</p>
+    <p style="height:0.20rem;font-size:0.14rem;color:#999;">结账时出示此优惠券与护照给店员，即可享受备份</p>
+    <p style="height:0.20rem;font-size:0.14rem;color:#999;">结账时出示此优惠券与护照给店员，即可享受备份</p>
+</div>
+</body>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/rem.js"></script>
+<script src="js/slip.js"></script>
+<script src="js/message.js"></script>
+<script>
+    /**
+     * [slip description]
+     * 调用方法  slip('.slipping-area')||slip(1000)||slip('.slipping-area',1000)
+     * @param  {[jq选择器]} selector [jq选择器,默认'.slipping-area']
+     * @param  {[int]} time     [轮播时间，默认0,0则代表不开启自动轮播]
+     */
+    slip.iniT('.slipping-area', 2000);
+    message()
+    message.init({
+        header: '111',
+        content: '222',
+        btns: [
+            {
+                className: 'aa',
+                content: '确定'
+            },
+            {
+                className: 'bb',
+                content: '取消'
+            }
+        ]
+    })
+</script>
+</html>

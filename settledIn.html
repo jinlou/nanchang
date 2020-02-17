@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>入驻申请</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/settledIn.css" rel="stylesheet" type="text/css">
+    <link href="css/message.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+</head>
+<body>
+<img class="enter" src="img/business.png" alt="">
+<ul class="business_info">
+    <li>
+        <p class="one">
+            <span>店铺名称：</span>
+            <input class="shopName" type="text" placeholder="请输入店铺名称">
+        </p>
+    </li>
+    <li>
+        <p class="one">
+            <span>联系电话：</span>
+            <input class="shopPhone" type="text" placeholder="请输入联系电话">
+        </p>
+    </li>
+    <li>
+        <p class="one">
+            <span>选择省/市/区：</span>
+            <a href="#" class="btn btn-info btn-lg active textbox" role="button" id="sel_city">请选择</a>
+        </p>
+    </li>
+    <li>
+        <p class="one">
+            <span>店铺地址：</span>
+            <input class="shopAddress" type="text" placeholder="请输入店铺地址">
+        </p>
+    </li>
+    <li>
+        <p class="one">
+            <span>营业时间：</span>
+            <input class="shopTime" type="text" placeholder="请输入营业时间">
+        </p>
+    </li>
+    <li>
+        <div class="one" style="display:flex;align-items: center;">
+            <p style="display:inline-block;height:0.46rem;line-height: 0.46rem;margin: 0;">店铺头像：</p>
+            <p class="upload_outer">
+                <img class="upload_img1" src="img/add.png" alt="">
+                <input type="file" name="file" id="file" accept="image/*" onchange="uploadImg()">
+            </p>
+        </div>
+    </li>
+</ul>
+<p style="margin: 0.26rem 0.26rem 0;font-size: 0.14rem;">上传凭证：请上传您的实体店凭证，如营业执 照，店铺实拍照片等</p>
+<p class="upload_outer" style="margin: 0 0.26rem 0.18rem;">
+    <img class="upload_img2" src="img/add.png" alt="">
+    <input type="file" name="file" id="file_shop" accept="image/*" onchange="uploadImg()">
+</p>
+
+<p class="submit">提交审核</p>
+<div class="message-box-wrapper">
+    <div class="message-box">
+        <div class="message-box-header"></div>
+        <div class="message-box-content">请完善信息！</div>
+        <div class="message-box-btns">
+            <!--<div class="message-box-cancel">取消</div>-->
+            <div class="message-box-confirm">确定</div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/rem.js"></script>
+<script src="js/picker.min.js"></script>
+<script src="js/city.js"></script>
+<script>
+    (function () {
+
+
+        var nameEl = document.getElementById('sel_city');
+
+        var first = [];
+        /* 省，直辖市 */
+        var second = [];
+        /* 市 */
+        var third = [];
+        /* 镇 */
+
+        var selectedIndex = [0, 0, 0];
+        /* 默认选中的地区 */
+
+        var checked = [0, 0, 0];
+        /* 已选选项 */
+
+        function creatList(obj, list) {
+            obj.forEach(function (item, index, arr) {
+                var temp = new Object();
+                temp.text = item.name;
+                temp.value = index;
+                list.push(temp);
+            })
+        }
+
+        creatList(city, first);
+
+        if (city[selectedIndex[0]].hasOwnProperty('sub')) {
+            creatList(city[selectedIndex[0]].sub, second);
+        } else {
+            second = [{text: '', value: 0}];
+        }
+
+        if (city[selectedIndex[0]].sub[selectedIndex[1]].hasOwnProperty('sub')) {
+            creatList(city[selectedIndex[0]].sub[selectedIndex[1]].sub, third);
+        } else {
+            third = [{text: '', value: 0}];
+        }
+
+        var picker = new Picker({
+            data: [first, second, third],
+            selectedIndex: selectedIndex,
+            title: '地址选择'
+        });
+
+        picker.on('picker.select', function (selectedVal, selectedIndex) {
+            var text1 = first[selectedIndex[0]].text;
+            var text2 = second[selectedIndex[1]].text;
+            var text3 = third[selectedIndex[2]] ? third[selectedIndex[2]].text : '';
+
+            nameEl.innerText = text1 + ' ' + text2 + ' ' + text3;
+        });
+
+        picker.on('picker.change', function (index, selectedIndex) {
+            if (index === 0) {
+                firstChange();
+            } else if (index === 1) {
+                secondChange();
+            }
+
+            function firstChange() {
+                second = [];
+                third = [];
+                checked[0] = selectedIndex;
+                var firstCity = city[selectedIndex];
+                if (firstCity.hasOwnProperty('sub')) {
+                    creatList(firstCity.sub, second);
+
+                    var secondCity = city[selectedIndex].sub[0]
+                    if (secondCity.hasOwnProperty('sub')) {
+                        creatList(secondCity.sub, third);
+                    } else {
+                        third = [{text: '', value: 0}];
+                        checked[2] = 0;
+                    }
+                } else {
+                    second = [{text: '', value: 0}];
+                    third = [{text: '', value: 0}];
+                    checked[1] = 0;
+                    checked[2] = 0;
+                }
+
+                picker.refillColumn(1, second);
+                picker.refillColumn(2, third);
+                picker.scrollColumn(1, 0)
+                picker.scrollColumn(2, 0)
+            }
+
+            function secondChange() {
+                third = [];
+                checked[1] = selectedIndex;
+                var first_index = checked[0];
+                if (city[first_index].sub[selectedIndex].hasOwnProperty('sub')) {
+                    var secondCity = city[first_index].sub[selectedIndex];
+                    creatList(secondCity.sub, third);
+                    picker.refillColumn(2, third);
+                    picker.scrollColumn(2, 0)
+                } else {
+                    third = [{text: '', value: 0}];
+                    checked[2] = 0;
+                    picker.refillColumn(2, third);
+                    picker.scrollColumn(2, 0)
+                }
+            }
+
+        });
+
+        picker.on('picker.valuechange', function (selectedVal, selectedIndex) {
+            $('a.active').css("color", '#333')
+            console.log(selectedVal);
+            console.log(selectedIndex);
+        });
+
+        nameEl.addEventListener('click', function () {
+            picker.show();
+        });
+
+        function uploadImg() {
+            if ($("#file").val() !== "") {
+                data = new FormData($('#file')[0]);
+                console.log(data);
+                // $.post('up.php',{p:2},function(data){
+                //    alert(data);
+                //  })
+                $.ajax({
+                    url: 'up.php',
+                    type: 'POST',
+                    data: data,
+                    dataType: 'JSON',
+                    cache: false,
+                    processData: false,  //不处理发送的数据，因为data值是FormData对象，不需要对数据做处理
+                    contentType: false   //不设置Content-type请求头
+                }).done(function (ret) {
+                    console.log(ret);
+                });
+            }
+        }
+
+        // 提交申请
+        $('.submit').on('click', function () {
+            console.log('submit')
+            var shopName = $('.shopName').val()
+            var shopPhone = $('.shopPhone').val()
+            var shopAddress = $('.shopAddress').val()
+            var shopTime = $('.shopTime').val()
+            if (shopName == '' || shopPhone == '' || shopAddress == '' || shopTime == '') {
+                $('.message-box-wrapper').css('display', 'block')
+            }
+
+        })
+
+        // 点击弹窗确定按钮，隐藏弹窗
+        $('.message-box-confirm').on('click', function(){
+            $('.message-box-wrapper').css('display', 'none')
+        })
+    })()
+</script>
+</html>

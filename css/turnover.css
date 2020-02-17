@@ -1,0 +1,61 @@
+* {
+    font-size: 0.14rem;
+}
+
+.turnover_top {
+    display: flex;
+    align-items: center;
+    font-size: 0.14rem;
+    font-family: PingFangSC-Regular, PingFang SC;
+    height: 0.37rem;
+}
+
+.turnover_top li {
+    text-align: center;
+}
+
+.turnover_top li:first-child {
+    width: 1.2rem;
+}
+
+.turnover_top li:nth-child(2), .turnover_top li:nth-child(3), .turnover_top li:last-child {
+    flex: 1;
+}
+
+.turnover_list {
+    padding: 0 0.13rem;
+}
+
+.turnover_list li {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid #C7C7C7;
+    height: 0.6rem
+}
+
+.turnover_list div {
+    text-align: center;
+}
+
+.turnover_list div:first-child {
+    width: 1.2rem;
+
+}
+
+.turnover_list div:first-child p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.turnover_list div:first-child p span:first-child {
+    font-weight: 500;
+    font-family: PingFangSC-Medium, PingFang SC;
+}
+
+.turnover_list div:nth-child(2), .turnover_list div:nth-child(3), .turnover_list div:last-child {
+    flex: 1;
+    line-height: 0.6rem;
+}

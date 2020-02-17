@@ -1,0 +1,41 @@
+*{
+    font-size: 0.14rem;
+}
+
+img {
+    width: 100%;
+}
+
+.coupon_info{
+    color: #333;
+    line-height: 0.2rem;
+    margin: 0.3rem 0 0.35rem 0.3rem;
+}
+
+.coupon_info span {
+    color: #3EA744;
+}
+
+.btns{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.44rem;
+}
+
+.btns p{
+    width: 1.24rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    text-align: center;
+    border-radius: 0.2rem;
+}
+
+.btns p:first-child{
+    color: #D3AB7F;
+    border: 1px solid #D3AB7F;
+}
+
+.btns p:last-child{
+    background: #D3AB7F;
+    color: #fff;
+}

@@ -1,0 +1,129 @@
+.address_input {
+    margin: 0.23rem 0.31rem 0.20rem 0.10rem;
+    display: flex;
+    align-items: center;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+    color: #333;
+    font-size: 0.15rem;
+}
+
+.down-img {
+    width: 0.12rem;
+    height: 0.06rem;
+    margin: 0 0.04rem;
+}
+
+.search_input {
+    display: flex;
+    align-items: center;
+    color: #333;
+    font-size: 0.15rem;
+}
+
+.search_input input {
+    border: none;
+    height: 0.32rem;
+    width: 2.20rem;
+    line-height: 0.32rem;
+    padding-left: 0.05rem;
+}
+
+.serach_img {
+    width: 0.19rem;
+    height: 0.19rem;
+    margin: 0 0.08rem;
+}
+
+.search_input input::-webkit-input-placeholder {
+    color: #666;
+}
+
+.search_input input::-moz-input-placeholder {
+    color: #666;
+}
+
+.search_input input::-ms-input-placeholder {
+    color: #666;
+}
+
+.buy_accout {
+    width: 100%;
+}
+
+.to_settle {
+    display: flex;
+    justify-content: center;
+}
+
+.business_enter_img {
+    width: 3.55rem;
+    height: 0.84rem;
+    margin: 0.23rem auto;
+}
+
+.businesses {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.one_business {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.business_name {
+    font-size: 0.19rem;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #333;
+    line-height: 0.26rem;
+    margin: 0.05rem 0 0.09rem;
+    text-align: center;
+}
+
+.business_logo {
+    width: 1.54rem;
+    height: 1.54rem;
+}
+
+.enter_business {
+    margin: 0.14rem 0 0.15rem;
+    width: 1.54rem;
+    background: #CAB086;
+    border-radius: 0.04rem;
+    color: #fff;
+    font-weight: 400;
+    font-size: 0.13rem;
+    text-align: center;
+    height: 0.22rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+}
+
+.buttom p {
+    width: 50%;
+    height: 0.40rem;
+    line-height: 0.40rem;
+    text-align: center;
+    font-size: 0.16rem;
+}
+
+.noBusiness {
+    font-size: 0.16rem;
+    color: #333;
+    height: 0.4rem;
+    line-height: 0.4rem;
+}

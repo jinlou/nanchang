@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>发布优惠券</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/postConpons.css" rel="stylesheet" type="text/css">
+    <link href="css/myDatepicker.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<img src="img/shop.png" alt="">
+<div class="coupon_info">
+    <p>代金券类型：</p>
+    <span>代金券</span>
+</div>
+<div class="coupon_info">
+    <p>代金券面值：</p>
+    <input type="text" placeholder="请输入代金券面值">
+</div>
+<div class="coupon_info">
+    <p>代金券售价：</p>
+    <input type="text" placeholder="请输入代金券售价">
+</div>
+<div class="coupon_info">
+    <p>发布数量：</p>
+    <input type="text" placeholder="请输入发布数量">
+</div>
+<div class="coupon_info">
+    <p>有效期：</p>
+    <input type="text" placeholder="有效期" id="date-input">
+</div>
+<div class="coupon_info">
+    <p>限制设置：</p>
+    <input type="text" placeholder="每个用户限领1张">
+</div>
+<div class="coupon_info">
+    <p>使用说明：</p>
+    <input type="text" placeholder="请输入使用说明">
+</div>
+<p class="confirm">确认发布</p>
+</body>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/rem.js"></script>
+<script src="js/myDatepicker.js"></script>
+<script>
+
+
+    $("#date-input").myDatePicker({
+        'startDate': (new Date()).Format("yyyy-mm-dd hh:ii:ss"),
+        'endDate': '2030-01-01',
+        //指定父元素，不指定默认为body
+        parent: $("#date-input").parent(),
+        //定位方式是否用fixed
+        positionFixed: $("#position-1").is(':checked'),
+    });
+    var turnover = [
+        {
+            name: 'Alex',
+            time: '2019-12-09 05:00',
+            money: '3433',
+            pay: '2344',
+            account: '234'
+        },
+        {
+            name: 'Alex',
+            time: '2019-12-09 05:00',
+            money: '3433',
+            pay: '2344',
+            account: '234'
+        },
+        {
+            name: 'Alex',
+            time: '2019-12-09 05:00',
+            money: '3433',
+            pay: '2344',
+            account: '234'
+        }
+    ]
+</script>
+</html>

@@ -1,0 +1,60 @@
+.message-box-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    background-color: rgba(0, 0, 0, .3);
+    display: none;
+    font-size: 0.14rem;
+}
+
+.message-box-wrapper::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 0;
+    vertical-align: middle;
+}
+
+.message-box {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 3rem;
+    height: 2rem;
+    background: #ffffff;
+}
+
+.message-box-content {
+    padding: 30px 20px;
+    font-size: 0.16rem;
+}
+
+.message-box-btns {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0.5rem;
+}
+
+.message-box-cancel,
+.message-box-confirm {
+    float: left;
+    /*width: 50%;*/
+    width: 100%;
+    height: 100%;
+    line-height: 0.5rem;
+    color: #ffffff;
+}
+
+.message-box-cancel {
+    background-color: #8f9498;
+    font-size: 0.14rem;
+}
+
+.message-box-confirm {
+    background-color: #FF6400;
+    font-size: 0.14rem;
+}
