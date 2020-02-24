@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>裁剪图片</title>
+    <link rel="stylesheet" href="css/cropper.css" />
+
+    <style>
+        .container{width: 100%;height: 100%;position: fixed;}
+        .canvas{/*width: 100%;*/height:60%;}
+        .fade{width: 100%;height:20%;background-color: #000;}
+        .btn_box{width: 60%;height:auto;margin: 0 auto;bottom: 0px;text-align: center;/*border: 1px solid red; */padding-top: 10%;}
+        .btn_box div{opacity: .5;color:#fff;width: 40%;font-size:34px;border: 1px solid #A09F9F;padding: 20px 10px;display: inline-block;text-align: center;padding: 10px 20px;}
+        #cut{border-bottom-right-radius: 100px;border-top-right-radius: 100px;}
+    </style>
+</head>
+<body class="container">
+<!-- 展示选择的图片 -->
+<div class="canvas">
+    <img id="image" src="" />
+</div>
+<!-- 按钮 -->
+<div class="fade">
+    <div class="btn_box">
+        <div class="btn" οnclick="javascript:window.history.go(-1);" style="border-bottom-left-radius: 100px;border-top-left-radius: 100px;">取消</div>
+        <div class="btn" id="cut" >确定</div>
+    </div>
+</div>
+<!-- 预览裁剪的图片 -->
+<div style="height:20%;">
+    <canvas id="canvas" style="border: 1px solid saddlebrown;"></canvas>
+    <img src="" id="test" />
+</div>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/cropper.js" ></script>
+<script>
+    var local = localStorage.getItem("localData");
+    var $image = $("#image");  //裁剪区域要显示的图片
+    $image.attr("src",local);
+
+    $image.on("load", function() {// 等待图片加载成功后，才进行图片的裁剪功能
+        $image.cropper({
+            aspectRatio: 1 / 1,
+            viewMode:1,
+            highlight:false,
+            rotatable:false,
+            background:true,
+            zoomOnTouch:false,
+            guides: false,  //裁剪框的虚线
+            autoCropArea: 1,//0-1之间的数值，定义自动剪裁区域的大小，默认0.8
+            dragCrop: false,//是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
+            movable: true,  //是否允许移动剪裁框
+            resizable: true,  //是否允许改变裁剪框的大小
+            zoomable: false,  //是否允许缩放图片大小
+            mouseWheelZoom: false,  //是否允许通过鼠标滚轮来缩放图片
+            touchDragZoom: false,  //是否允许通过触摸移动来缩放图片
+            rotatable: false,  //是否允许旋转图片
+            strict: true,
+            toggleDragModeOnDblclick:false
+        });
+    });
+
+    //裁剪 按钮
+    $("#cut").on("click", function() {
+
+        //方法一：通过cropper的getCroppedCanvas方法可以拿到一个画有剪裁图片的canvas。
+        //但是测试后发现这种方法会导致裁剪的图片方法，需要进行比例缩放
+//			    var dataURL = $('#image').cropper("getCroppedCanvas");//拿到剪裁后的数据
+//         		var data = dataURL.toDataURL("image/jpg", 1);//转成base64
+//			    alert("回调："+data);
+
+        //方法二：通过cropper的getCanvasData和getCropBoxData方法获取到裁剪的一些数                据，再通过canvas的toDataURL转换裁剪的图片为base64
+        var src = $image.attr("src");
+        var canvasdata = $image.cropper("getCanvasData");
+        var cropBoxData = $image.cropper('getCropBoxData');
+        convertToData(src, canvasdata, cropBoxData, function(basechar) {
+            // 回调后的函数处理
+//					alert("回调："+basechar);
+					localStorage.setItem("basechar",basechar);
+					location.href="index.html";//预览base64
+        });
+    })
+
+    //重新绘制裁剪的图片 转换为base64
+    function convertToData(url, canvasdata, cropdata, callback) {
+        console.log(canvasdata)
+        var cropw = cropdata.width; // 剪裁区域的宽度。
+        var croph = cropdata.height; // 剪裁区域的高度
+        var imgw = canvasdata.width; // canvas新的宽度
+        var imgh = canvasdata.height; // canvas新的高度
+//			    alert(cropw+"，"+croph+"，"+imgw+"，"+imgh);
+        var poleft = canvasdata.left - cropdata.left; // canvas定位图片的左边位置
+        var potop = canvasdata.top - cropdata.top; // canvas定位图片的上边位置
+//			    alert(poleft+"，"+potop);
+//			    var canvas = document.createElement("canvas");//通过js创建canvas 但是页面看不到裁剪后的图片 需要自己拿到裁剪的base64后在显示出来
+        var canvas = document.getElementById("canvas");//如果是本页面展示 可以在页面创建一个canvas 可以看到裁剪工具裁剪的图片
+        var ctx = canvas.getContext('2d');
+
+        canvas.width = cropw;
+        canvas.height = croph;
+
+
+        var img = new Image();
+        img.src = url;
+        img.onload = function() {
+            this.width = imgw;
+            this.height = imgh;
+            ctx.drawImage(this, poleft, potop, this.width,this.height);
+            var base64 = canvas.toDataURL("image/jpg", 1);  // 这里的“1”是指的是处理图片的清晰度（0-1）之间，当然越小图片越模糊，处理后的图片大小也就越小
+            callback && callback(base64)      // 回调base64字符串
+        }
+
+        img.onerror = function () {
+            alert("error")
+        }
+    }
+
+</script>
+</body>
+</html>

@@ -64,6 +64,7 @@ li.active:after {
     position: absolute;
     width: 100%;
 }
+
 .unwritten_off_order_content {
     display: none;
 }
@@ -74,8 +75,8 @@ li.active:after {
 
 /*@-webkit-keyframes mymove !*Safari and Chrome*!*/
 /*{*/
-    /*from {left:0px;}*/
-    /*to {left:200px;}*/
+/*from {left:0px;}*/
+/*to {left:200px;}*/
 /*}*/
 
 .one_order {
@@ -148,8 +149,27 @@ li.active:after {
     color: #C90F15;
 }
 
+.buttom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    height: 0.48rem;
+    background: #fff;
+}
 
+.buttom a {
+    width: 50%;
+    height: 0.40rem;
+    line-height: 0.40rem;
+    text-align: center;
+    font-size: 0.16rem;
+    color: #666;
+}
 
+.buttom a:last-child {
+    color: #D3AB7F;
+}
 
 
 

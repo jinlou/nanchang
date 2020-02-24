@@ -31,5 +31,6 @@ input {
     color: #fff;
     text-align: center;
     font-size: 0.14rem;
-    margin-top: 0.41rem;
+    /*margin-top: 0.41rem;*/
+    margin: 0.41rem auto;
 }
